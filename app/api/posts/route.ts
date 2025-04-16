@@ -4,8 +4,8 @@ import {z} from "zod";
 
 const prisma = new PrismaClient();
 
-export async function GET(req: Request, res: Response) {
-    const posts = await prisma.posts.findMany()
+export async function GET() {
+    const posts = await prisma.post.findMany()
     return Response.json(posts)
 }
 
@@ -14,7 +14,7 @@ const postSchema = z.object({
     content: z.string(),
 })
 
-export async function POST(req: NextRequest, res: Response) {
+export async function POST(req: NextRequest) {
     const body = await req.json()
     const posts = postSchema.safeParse(body)
     if (!posts.success) {
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest, res: Response) {
             status: 400
         })
     }
-    const result = await prisma.posts.create({
+    const result = await prisma.post.create({
         data: posts.data
     })
     return Response.json(result)
