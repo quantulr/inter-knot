@@ -16,6 +16,8 @@ model Post {
   published Boolean  @default(true)
   createAt  DateTime @default(now()) @map("create_at")
   authorId  String?  @map("author_id")
+
+  @@map("post")
 }
 
 model User {
@@ -24,4 +26,6 @@ model User {
   password String
   avatar   String
   createAt DateTime @default(now()) @map("create_at")
+
+  @@map("user")
 }

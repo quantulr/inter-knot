@@ -1,0 +1,5 @@
+@keyframes dan {
+    50% {
+        transform: scale(2);
+    }
+}
