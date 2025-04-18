@@ -1,7 +1,27 @@
 import { auth } from "@/auth";
 import { NextResponse } from "next/server";
+import prisma from "@/app/_lib/prisma";
 
-export const GET = auth(function GET(req) {
-  if (req.auth) return NextResponse.json(req.auth);
-  return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
-});
+export async function GET() {
+  const session = await auth();
+  if (!session) {
+    return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
+  }
+  const user = await prisma.user.findFirst();
+  if (!user) {
+    return NextResponse.json(
+      {
+        error: "error",
+      },
+      {
+        status: 404,
+      },
+    );
+  }
+  const { username, avatar, email } = user;
+  return NextResponse.json({
+    username,
+    avatar,
+    email,
+  });
+}
