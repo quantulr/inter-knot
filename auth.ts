@@ -1,32 +1,34 @@
 import {PrismaClient} from "@/prisma/prismaClient";
-import NextAuth from "next-auth"
+import NextAuth, {AuthError,} from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const prisma = new PrismaClient()
 export const {handlers, signIn, signOut, auth} = NextAuth({
+
     providers: [
         CredentialsProvider({
+            id: "credentials",
             name: "credentials",
             credentials: {
                 username: {},
                 password: {}
             },
-            async authorize(credentials, req) {
+            async authorize(credentials) {
                 const {username, password} = credentials;
-                console.log(username)
                 const user = await prisma.user.findUnique({
                     where: {
-                        username: username as string
+                        username: username as string,
+                        password: password as string
                     }
                 });
-                if (!user || user.password !== password) {
-                    throw new Error("用户名或密码错误")
+                if (!user) {
+                    throw new AuthError("用户名或密码错误",);
                 }
-
-                return {
-                    email: "eraer"
-                }
+                return user
             }
         })
     ],
+    // pages: {
+    //     signIn: "/signin",
+    // }
 })

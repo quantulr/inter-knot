@@ -1,4 +1,3 @@
-// import {signIn} from "next-auth/providers";
 import { z } from "zod";
 import { signIn } from "@/auth";
 
@@ -28,7 +27,7 @@ export async function POST(req: Request) {
     });
     return Response.json({ success: true }, {});
   } catch (error) {
-    console.log(error);
-    return Response.json({ error: "用户名或密码错误" }, { status: 401 });
+    // @ts-expect-error wcnm
+    return Response.json({ error: error.message }, { status: 401 });
   }
 }

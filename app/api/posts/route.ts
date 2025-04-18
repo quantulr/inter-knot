@@ -1,8 +1,6 @@
-import { PrismaClient } from "@/prisma/prismaClient";
 import { NextRequest } from "next/server";
 import { z } from "zod";
-
-const prisma = new PrismaClient();
+import prisma from "@/app/_lib/prisma";
 
 export async function GET() {
   const posts = await prisma.post.findMany();

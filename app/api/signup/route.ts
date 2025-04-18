@@ -1,14 +1,12 @@
-import { PrismaClient } from "@/prisma/prismaClient";
 import { NextRequest } from "next/server";
 import { z } from "zod";
+import prisma from "@/app/_lib/prisma";
 
 const signupSchema = z.object({
   username: z.string().min(4),
   password: z.string().min(12),
   email: z.string().email(),
 });
-
-const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest) {
   const signupJson = await req.json();
