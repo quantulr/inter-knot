@@ -101,6 +101,9 @@
 //     </div>
 //   );
 // }
+import { redirect } from "next/navigation";
+
 export default function Home() {
-  return <div>home</div>;
+  return redirect("/posts");
+  // return <div>home</div>;
 }

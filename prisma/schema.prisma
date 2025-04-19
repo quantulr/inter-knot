@@ -26,6 +26,7 @@ model User {
   password String
   email    String   @unique
   nickname String
+  exp      Int      @default(0)
   avatar   String?
   createAt DateTime @default(now()) @map("create_at")
 

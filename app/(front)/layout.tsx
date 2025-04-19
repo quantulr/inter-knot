@@ -5,8 +5,12 @@ import AvatarAndLevel from "@/app/_components/AvatarAndLevel";
 const Layout = ({ children }: { children: ReactNode }) => {
   // const router = useRouter()
   return (
-    <div className={"h-screen bg-black"}>
-      <div className={"flex h-16 items-center justify-between px-2"}>
+    <div className={"min-h-screen bg-black"}>
+      <div
+        className={
+          "fixed top-0 z-20 flex h-16 w-full items-center justify-between bg-black px-2"
+        }
+      >
         {/*<h2 className={"text-white text-xl font-extrabold"}>*/}
         {/*    INTER-KNOT*/}
         {/*</h2>*/}
@@ -15,7 +19,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
         </div>
         <NavBar />
       </div>
-      {children}
+      <div className={"pt-20"}>{children}</div>
     </div>
   );
 };

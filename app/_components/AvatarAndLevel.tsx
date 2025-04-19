@@ -30,7 +30,7 @@ const AvatarAndLevel = async () => {
       <div className={"ml-2 flex flex-col justify-center"}>
         <p className={"username leading-none text-white"}>{nickname}</p>
         <progress
-          className={"progress progress-secondary mt-1 w-40"}
+          className={"progress progress-secondary mt-2 w-40"}
           value={70}
           max={100}
         />
