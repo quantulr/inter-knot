@@ -10,8 +10,13 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
             id: "credentials",
             name: "credentials",
             credentials: {
-                username: {},
-                password: {}
+                username: {
+                    label: "用户名"
+                },
+                password: {
+                    label: "密码",
+                    type: "password"
+                }
             },
             async authorize(credentials) {
                 const {username, password} = credentials;
@@ -25,10 +30,16 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
                     throw new AuthError("用户名或密码错误",);
                 }
                 return user
-            }
-        })
+            },
+
+        }),
     ],
-    // pages: {
-    //     signIn: "/signin",
-    // }
+    pages: {
+        signIn: "/signin",
+    },
+    callbacks: {
+        redirect() {
+            return "/"
+        }
+    }
 })

@@ -18,9 +18,10 @@ export async function GET() {
       },
     );
   }
-  const { username, avatar, email } = user;
+  const { username, avatar, email, nickname } = user;
   return NextResponse.json({
     username,
+    nickname,
     avatar,
     email,
   });

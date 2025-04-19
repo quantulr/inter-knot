@@ -24,7 +24,8 @@ model User {
   id       String   @id @default(cuid())
   username String   @unique
   password String
-  email    String
+  email    String   @unique
+  nickname String
   avatar   String?
   createAt DateTime @default(now()) @map("create_at")
 
