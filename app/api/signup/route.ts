@@ -6,6 +6,7 @@ const signupSchema = z.object({
   username: z.string().min(4),
   password: z.string().min(12),
   email: z.string().email(),
+  nickname: z.string().min(1),
 });
 
 export async function POST(req: NextRequest) {
