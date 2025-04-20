@@ -4,30 +4,35 @@ import { useMediaQuery } from "react-responsive";
 import dynamic from "next/dynamic";
 import { ComponentType } from "react";
 import { MasonryProps } from "masonic";
+import useSWR from "swr";
+import request from "@/app/_lib/request";
 
-interface ItemProp {
-  id: number;
-}
-
-const Masonry: ComponentType<MasonryProps<ItemProp>> = dynamic(
+const Masonry: ComponentType<MasonryProps<Post>> = dynamic(
   () => import("masonic").then((mod) => mod.Masonry),
   {
     ssr: false,
   },
 );
 
-let i = 0;
-const items = Array.from(Array(200), () => ({ id: i++ }));
-
 const PostsMasonryGrid = () => {
+  const { data, isLoading } = useSWR(
+    () => 1,
+    (key) =>
+      request.get<never, BasePageResponse<Post[]>>(
+        `/posts?page=${key}&limit=10`,
+      ),
+  );
   const isXl = useMediaQuery({
     minWidth: 1280,
   });
   const isMd = useMediaQuery({ minWidth: 768 });
+  if (isLoading) {
+    return <div>loading</div>;
+  }
   return (
-    <div className={"min-h-screen w-full px-2 xl:px-20"}>
+    <div className={"w-full px-2 xl:px-20"}>
       <Masonry
-        items={items}
+        items={data!.data}
         render={MasonryCard}
         columnCount={isXl ? 5 : isMd ? 3 : 2}
       />
@@ -35,18 +40,13 @@ const PostsMasonryGrid = () => {
   );
 };
 
-const MasonryCard = ({}: {
+const MasonryCard = ({
+  data,
+}: {
   index: number;
-  data: {
-    id: number;
-  };
+  data: Post;
   width: number;
 }) => {
-  /*  const { data } = useSWR(
-      () => Math.floor(Math.random() * (500 - 400 + 1)) + 400,
-      (key) => request.get<never, Blob>(`https://picsum.photos/300/${key}.webp`),
-    );*/
-  const height = Math.floor(Math.random() * (500 - 400 + 1)) + 400;
   return (
     <div
       className={
@@ -54,10 +54,7 @@ const MasonryCard = ({}: {
       }
     >
       {/*<div>Index: {index}</div>*/}
-      <img
-        className={"block"}
-        src={`https://picsum.photos/300/${height}.webp`}
-      />
+      <img className={"block"} src={data.images[0]} alt={""} />
     </div>
   );
 };

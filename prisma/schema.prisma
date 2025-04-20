@@ -15,7 +15,8 @@ model Post {
   content   String
   published Boolean  @default(true)
   createAt  DateTime @default(now()) @map("create_at")
-  authorId  String?  @map("author_id")
+  authorId  String   @map("author_id")
+  images    String[]
 
   @@map("post")
 }
