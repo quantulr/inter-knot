@@ -1,11 +1,8 @@
 import PostsMasonryGrid from "@/app/_components/PostsMasonryGrid";
 
 export default function Page() {
-  // const { data: posts } = useSWR("/posts", (key) =>
-  //   request.get<never, Post[]>(key),
-  // );
   return (
-    <div className={"masonry-grid flex justify-center"}>
+    <div className={"masonry-grid flex justify-center bg-[#2a2a2a]"}>
       <PostsMasonryGrid />
     </div>
   );

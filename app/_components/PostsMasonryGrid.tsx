@@ -1,101 +1,52 @@
 "use client";
-import { MasonryInfiniteGrid } from "@egjs/react-infinitegrid";
-import { useState } from "react";
 
-interface PostItem {
-  groupKey?: number;
-  key: number;
-  num: number;
-}
+import { Masonry } from "masonic";
+import { useMediaQuery } from "react-responsive";
 
-function getItems(nextGroupKey: number, count: number) {
-  const nextItems = [];
-  const nextKey = nextGroupKey * count;
+let i = 0;
+const items = Array.from(Array(200), () => ({ id: i++ }));
 
-  for (let i = 0; i < count; ++i) {
-    nextItems.push({ groupKey: nextGroupKey, key: nextKey + i });
-  }
-  return nextItems;
-}
-
-const Item = ({ num }: PostItem) => (
-  <div
-    className={"item rounded-lg bg-gray-500 text-white"}
-    style={{
-      width: "300px",
-    }}
-  >
-    <div className="thumbnail">
-      <img
-        src={`https://naver.github.io/egjs-infinitegrid/assets/image/${(num % 33) + 1}.jpg`}
-        alt="egjs"
+const PostsMasonryGrid = () => {
+  const isXl = useMediaQuery({
+    minWidth: 1280,
+  });
+  const isMd = useMediaQuery({ minWidth: 768 });
+  return (
+    <div className={"min-h-screen w-full px-2 xl:px-20"}>
+      <Masonry
+        items={items}
+        render={MasonryCard}
+        columnCount={isXl ? 5 : isMd ? 3 : 2}
       />
     </div>
-    <div className={"info"}>{`egjs ${num}`}</div>
-  </div>
-);
-
-const PostsMasonryGrid = () => {
-  const [items, setItems] = useState(() => getItems(0, 10));
-
-  return (
-    <MasonryInfiniteGrid
-      className="container"
-      align={"center"}
-      gap={8}
-      onRequestAppend={(e) => {
-        const nextGroupKey = (+e.groupKey! || 0) + 1;
-
-        setItems([...items, ...getItems(nextGroupKey, 10)]);
-      }}
-    >
-      {items.map((item) => (
-        <Item
-          data-grid-groupkey={item.groupKey}
-          key={item.key}
-          num={item.key}
-        />
-      ))}
-    </MasonryInfiniteGrid>
   );
 };
 
-/*
-const PostsMasonryGrid = () => {
-  const [posts, setPosts] = useState<PostItem[]>([
-    { groupKey: 0, key: 0 },
-    { groupKey: 1, key: 1 },
-    { groupKey: 2, key: 2 },
-  ]);
+const MasonryCard = ({}: {
+  index: number;
+  data: {
+    id: number;
+  };
+  width: number;
+}) => {
+  /*  const { data } = useSWR(
+      () => Math.floor(Math.random() * (500 - 400 + 1)) + 400,
+      (key) => request.get<never, Blob>(`https://picsum.photos/300/${key}.webp`),
+    );*/
+  const height = Math.floor(Math.random() * (500 - 400 + 1)) + 400;
   return (
-    <MasonryInfiniteGrid
-      align="center"
-      gap={5}
-      onRequestPrepend={(e) => {
-        // @ts-expect-error // atdse
-        const nextGroupKey = (e.groupKey || 0) + 1;
-        const length = posts.length;
-
-        setPosts([
-          ...posts,
-          { groupKey: nextGroupKey, key: length },
-          { groupKey: nextGroupKey, key: length + 1 },
-          { groupKey: nextGroupKey, key: length + 2 },
-        ]);
-      }}
+    <div
+      className={
+        "m-2 flex min-h-[100px] flex-col overflow-hidden rounded-t-3xl rounded-bl-3xl border-4 border-black bg-white"
+      }
     >
-      {posts.map((post) => (
-        <div
-          className={"item bg-white w-[180px]"}
-          data-grid-groupkey={post.groupKey}
-          key={post.key}
-        >
-          {post.key}
-        </div>
-      ))}
-    </MasonryInfiniteGrid>
+      {/*<div>Index: {index}</div>*/}
+      <img
+        className={"block"}
+        src={`https://picsum.photos/300/${height}.webp`}
+      />
+    </div>
   );
 };
-*/
 
 export default PostsMasonryGrid;

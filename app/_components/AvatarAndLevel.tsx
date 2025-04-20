@@ -11,8 +11,7 @@ const AvatarAndLevel = async () => {
       Cookie: cookieStorage.toString(),
     },
   });
-  const { nickname }: ProfileResponse = await profileResponse.json();
-
+  const { nickname, avatar }: ProfileResponse = await profileResponse.json();
   return (
     <div
       className={
@@ -21,10 +20,7 @@ const AvatarAndLevel = async () => {
     >
       <div className={"avatar h-full p-[1px]"}>
         <div className={"aspect-square h-full rounded-full"}>
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-            alt={""}
-          />
+          <img src={avatar} alt={""} />
         </div>
       </div>
       <div className={"ml-2 flex flex-col justify-center"}>
