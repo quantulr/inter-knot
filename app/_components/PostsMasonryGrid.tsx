@@ -1,7 +1,20 @@
 "use client";
 
-import { Masonry } from "masonic";
 import { useMediaQuery } from "react-responsive";
+import dynamic from "next/dynamic";
+import { ComponentType } from "react";
+import { MasonryProps } from "masonic";
+
+interface ItemProp {
+  id: number;
+}
+
+const Masonry: ComponentType<MasonryProps<ItemProp>> = dynamic(
+  () => import("masonic").then((mod) => mod.Masonry),
+  {
+    ssr: false,
+  },
+);
 
 let i = 0;
 const items = Array.from(Array(200), () => ({ id: i++ }));
