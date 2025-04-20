@@ -4,8 +4,8 @@ import prisma from "@/app/_lib/prisma";
 import { auth } from "@/auth";
 
 const postListParamsSchema = z.object({
-  page: z.number(),
-  limit: z.number(),
+  page: z.string(),
+  limit: z.string(),
 });
 
 export async function GET(req: NextRequest) {
@@ -27,8 +27,8 @@ export async function GET(req: NextRequest) {
     );
   }
   const posts = await prisma.post.findMany({
-    skip: (query.data.page - 1) * query.data.limit,
-    take: query.data.limit,
+    skip: (Number(query.data.page) - 1) * Number(query.data.limit),
+    take: Number(query.data.limit),
   });
 
   return Response.json({
