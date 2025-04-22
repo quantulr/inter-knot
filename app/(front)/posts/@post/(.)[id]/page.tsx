@@ -9,7 +9,6 @@ export default async function Page({
   return (
     <Modal>
       <h3 className="text-lg font-bold">Hello! {id}</h3>
-      <p className="py-4">Press ESC key or click the button below to close</p>
     </Modal>
   );
 }
