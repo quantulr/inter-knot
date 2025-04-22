@@ -16,6 +16,7 @@ model Post {
   published Boolean  @default(true)
   createAt  DateTime @default(now()) @map("create_at")
   authorId  String   @map("author_id")
+  author    User     @relation(fields: [authorId], references: [id])
   images    String[]
 
   @@map("post")
@@ -30,6 +31,7 @@ model User {
   exp      Int      @default(0)
   avatar   String?
   createAt DateTime @default(now()) @map("create_at")
+  Post     Post[]
 
   @@map("user")
 }

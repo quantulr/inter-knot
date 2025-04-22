@@ -13,8 +13,8 @@ export async function GET(req: NextRequest) {
     page?: string;
     limit?: string;
   } = {};
-  queryObj.page = req.nextUrl.searchParams.get("page") ?? undefined;
-  queryObj.limit = req.nextUrl.searchParams.get("limit") ?? undefined;
+  queryObj.page = req.nextUrl.searchParams.get("page") ?? "1";
+  queryObj.limit = req.nextUrl.searchParams.get("limit") ?? "10";
   const query = postListParamsSchema.safeParse(queryObj);
   if (!query.success) {
     return Response.json(
@@ -27,6 +27,17 @@ export async function GET(req: NextRequest) {
     );
   }
   const posts = await prisma.post.findMany({
+    include: {
+      author: {
+        omit: {
+          id: true,
+          password: true,
+          email: true,
+          createAt: true,
+        },
+      },
+    },
+
     skip: (Number(query.data.page) - 1) * Number(query.data.limit),
     take: Number(query.data.limit),
   });

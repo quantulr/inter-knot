@@ -37,6 +37,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     redirect() {
+      // console.log();
+
       return "/";
     },
     jwt({ token, user }) {

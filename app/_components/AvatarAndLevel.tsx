@@ -1,11 +1,31 @@
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
+import { getBaseUrlInRSC } from "../_lib/utils";
+import { auth } from "@/auth";
+import Link from "next/link";
 
 const AvatarAndLevel = async () => {
+  const session = await auth();
+  if (!session) {
+    return (
+      <div
+        className={
+          "hidden h-11 items-center rounded-full border border-gray-500 bg-[#262626] shadow-lg md:flex"
+        }
+      >
+        <Link href={"/signin"} className="btn btn-circle btn-primary">
+          login
+        </Link>
+        {/* <div className={"avatar h-full p-[1px]"}>
+          <div className={"aspect-square h-full rounded-full"}>
+            <img src={""} alt={""} />
+          </div>
+        </div> */}
+      </div>
+    );
+  }
   const cookieStorage = await cookies();
-  const headersList = await headers();
-  const protocol = headersList.get("x-forwarded-proto") || "http"; // 处理代理场景
-  const host = headersList.get("host");
-  const baseUrl = `${protocol}://${host}`;
+
+  const baseUrl = await getBaseUrlInRSC();
   const profileResponse = await fetch(`${baseUrl}/api/profile`, {
     headers: {
       Cookie: cookieStorage.toString(),
@@ -13,9 +33,10 @@ const AvatarAndLevel = async () => {
   });
   const { nickname, avatar }: ProfileResponse = await profileResponse.json();
   return (
-    <div
+    <Link
+      href={"/profile"}
       className={
-        "flex h-11 rounded-full border border-gray-500 bg-[#262626] pr-4 shadow-lg"
+        "hidden h-11 cursor-pointer rounded-full border-2 border-gray-500 bg-[#262626] pr-4 shadow-lg select-none active:border-amber-100 md:flex"
       }
     >
       <div className={"avatar h-full p-[1px]"}>
@@ -39,7 +60,7 @@ const AvatarAndLevel = async () => {
         <p className={"text-2xl leading-none font-bold"}>56</p>
         <p className={"mt-[1px] text-[8px] leading-none"}>LEVEL</p>
       </div>
-    </div>
+    </Link>
   );
 };
 

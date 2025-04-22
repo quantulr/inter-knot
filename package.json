@@ -11,7 +11,7 @@
     "fmt": "prettier --write \\\"app/**/*.{js,jsx,ts,tsx,json,md}\\\""
   },
   "dependencies": {
-    "@auth/prisma-adapter": "^2.8.0",
+    "@auth/prisma-adapter": "^2.9.0",
     "@egjs/react-infinitegrid": "^4.12.0",
     "@prisma/client": "^6.6.0",
     "@vercel/blob": "^1.0.0",
@@ -21,29 +21,29 @@
     "mime-types": "^3.0.1",
     "next": "15.3.0",
     "next-auth": "5.0.0-beta.25",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "react-responsive": "^10.0.1",
     "swr": "^2.3.3",
     "usehooks-ts": "^3.1.1",
     "xid-ts": "^1.1.4",
-    "zod": "^3.24.2"
+    "zod": "^3.24.3"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
+    "@eslint/eslintrc": "^3.3.1",
+    "@tailwindcss/postcss": "^4.1.4",
     "@types/mime-types": "^2.1.4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/node": "^20.17.30",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
     "daisyui": "^5.0.27",
-    "eslint": "^9",
+    "eslint": "^9.25.0",
     "eslint-config-next": "15.3.0",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "prisma": "^6.6.0",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "tailwindcss": "^4.1.4",
+    "typescript": "^5.8.3"
   },
   "packageManager": "pnpm@10.8.1+sha512.c50088ba998c67b8ca8c99df8a5e02fd2ae2e2b29aaf238feaa9e124248d3f48f9fb6db2424949ff901cffbb5e0f0cc1ad6aedb602cd29450751d11c35023677"
 }

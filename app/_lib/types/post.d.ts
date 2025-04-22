@@ -4,6 +4,10 @@ declare interface Post {
   content: string;
   images: string[];
   authorId: string;
+  author: {
+    avatar: string;
+    nickname: string;
+  };
 }
 
 declare interface PostForm {
