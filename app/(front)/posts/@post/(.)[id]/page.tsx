@@ -1,4 +1,5 @@
 import Modal from "@/app/_components/Modal";
+import PostImagesSwiper from "@/app/_components/PostImagesSwiper";
 import { getBaseUrlInRSC } from "@/app/_lib/utils";
 
 export default async function Page({
@@ -20,8 +21,9 @@ export default async function Page({
       }
     >
       <div className="flex max-h-[500px] p-4">
-        <div className="images w-72 overflow-hidden rounded-2xl border-4 border-[#353535] object-contain">
-          <img className="h-full w-full object-contain" src={post.images[0]} />
+        <div className="images flex w-72 items-center overflow-hidden rounded-2xl border-4 border-[#353535]">
+          {/* <img className="h-full w-full object-contain" src={post.images[0]} /> */}
+          <PostImagesSwiper images={post.images} />
         </div>
         <div className="post-content ml-2 w-96 rounded-2xl bg-black p-4">
           <div className="h-full overflow-y-scroll">

@@ -17,7 +17,8 @@ const Modal = ({
       className={
         "fixed top-0 left-0 z-50 flex h-full w-full items-center justify-center backdrop-blur-xs"
       }
-      onClick={() => {
+      onClick={(ev) => {
+        ev.stopPropagation();
         router.back();
       }}
     >
