@@ -7,9 +7,11 @@ import pcPageBg from "@/app/_assets/pc-page-bg.png";
 const Modal = ({
   children,
   title,
+  prevPath,
 }: {
   children: ReactNode;
   title?: ReactNode;
+  prevPath?: string;
 }) => {
   const router = useRouter();
   return (
@@ -19,7 +21,7 @@ const Modal = ({
       }
       onClick={(ev) => {
         ev.stopPropagation();
-        router.back();
+        router.push(prevPath || "../");
       }}
     >
       <div
@@ -37,7 +39,7 @@ const Modal = ({
             <div className={"left-section"}>{title}</div>
             <CloseButton
               onClose={() => {
-                router.back();
+                router.push(prevPath || "../");
               }}
             />
           </div>

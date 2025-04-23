@@ -5,7 +5,6 @@ import { getBaseUrlInRSC } from "@/app/_lib/utils";
 export default async function PostDetail({ id }: { id: string }) {
   const baseUrl = await getBaseUrlInRSC();
   const post: Post = await (await fetch(`${baseUrl}/api/posts/${id}`)).json();
-
   return (
     <Modal
       title={
@@ -14,6 +13,7 @@ export default async function PostDetail({ id }: { id: string }) {
           nickname={post.author.nickname}
         />
       }
+      prevPath={"/posts"}
     >
       <div className="flex max-h-[500px] p-4">
         <div className="images flex w-72 items-center overflow-hidden rounded-2xl border-4 border-[#353535]">
