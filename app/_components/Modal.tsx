@@ -44,7 +44,7 @@ const Modal = ({
             style={{
               backgroundImage: `url(${pcPageBg.src})`,
             }}
-            className={"dialog-content h-96 w-[800px] bg-auto bg-top"}
+            className={"dialog-content bg-auto bg-top"}
           >
             {children}
           </div>
