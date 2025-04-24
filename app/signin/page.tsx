@@ -4,7 +4,6 @@ import bgimg from "@/app/_assets/signin_bg.png";
 import Modal from "@/app/_components/Modal";
 
 const Page = () => {
-  console.log(bgimg);
   return (
     <div
       className={"flex h-screen items-center justify-center bg-cover bg-center"}
@@ -13,6 +12,8 @@ const Page = () => {
       }}
     >
       <Modal
+        prevPath={"/"}
+        showOverlay={false}
         title={<h3 className="text-2xl font-extrabold text-white">登录</h3>}
       >
         <div className="w-96 p-8">
@@ -21,12 +22,10 @@ const Page = () => {
             action={async (formData) => {
               "use server";
               try {
-                console.log(formData);
                 await signIn("credentials", formData);
-                // redirect("/posts")
-                // return redirect("/")
               } catch (error) {
                 if (error instanceof AuthError) {
+                  // TODO: handle error
                   // return redirect(`${SIGNIN_ERROR_URL}?error=${error.type}`)
                 }
                 throw error;
