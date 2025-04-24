@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 import CloseButton from "./CloseButton";
 import pcPageBg from "@/app/_assets/pc-page-bg.png";
+import "@/app/_components/Modal.css";
+
 const Modal = ({
   children,
   title,
@@ -25,10 +27,10 @@ const Modal = ({
       }}
     >
       <div
-        onClick={(ev) => {
-          ev.stopPropagation();
-        }}
         className={"overflow-hidden rounded-3xl border-2 border-[#2e2e2e]"}
+        style={{
+          animation: "slideIn 0.3s",
+        }}
       >
         <div className={"rounded-3xl border-2 border-black"}>
           <div
