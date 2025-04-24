@@ -13,7 +13,7 @@ export default async function PostDetail({ id }: { id: string }) {
           nickname={post.author.nickname}
         />
       }
-      prevPath={"/posts"}
+      prevPath={"/"}
     >
       <div className="flex max-h-[500px] p-4">
         <div className="images flex w-72 items-center overflow-hidden rounded-2xl border-4 border-[#353535]">
