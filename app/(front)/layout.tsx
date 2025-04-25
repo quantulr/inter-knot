@@ -7,7 +7,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
     <div className={"relative min-h-screen bg-black"}>
       <div
         className={
-          "fixed top-0 left-0 z-20 flex h-16 w-full items-center justify-between bg-black px-2"
+          "fixed top-0 left-0 z-20 flex h-18 w-full items-center justify-between bg-black px-2"
         }
       >
         <div className={"left"}>
@@ -16,7 +16,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
         <NavBar />
       </div>
 
-      <div className={"pt-16"}>{children}</div>
+      <div className={"pt-18"}>{children}</div>
     </div>
   );
 };

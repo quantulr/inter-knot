@@ -9,7 +9,7 @@ export default async function Page({
   return (
     <div
       style={{
-        minHeight: "calc(100vh - 64px)",
+        minHeight: "calc(100vh - 72px)",
       }}
       className={"masonry-grid flex justify-center bg-[#2a2a2a]"}
     >

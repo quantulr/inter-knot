@@ -10,14 +10,17 @@ datasource db {
 }
 
 model Post {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   title     String
   content   String
-  published Boolean  @default(true)
-  createAt  DateTime @default(now()) @map("create_at")
-  authorId  String   @map("author_id")
-  author    User     @relation(fields: [authorId], references: [id])
+  published Boolean   @default(true)
+  createAt  DateTime  @default(now()) @map("create_at")
+  authorId  String    @map("author_id")
+  author    User      @relation(fields: [authorId], references: [id])
   images    String[]
+  views     Int       @default(0)
+  likes     Int       @default(0)
+  comment   Comment[]
 
   @@map("post")
 }
@@ -31,7 +34,18 @@ model User {
   exp      Int      @default(0)
   avatar   String?
   createAt DateTime @default(now()) @map("create_at")
-  Post     Post[]
+  post     Post[]
 
   @@map("user")
+}
+
+model Comment {
+  id       String   @id @default(cuid())
+  content  String
+  createAt DateTime @default(now()) @map("create_at")
+  postId   String   @map("post_id")
+  post     Post     @relation(fields: [postId], references: [id])
+  authorId String   @map("author_id")
+
+  @@map("comment")
 }

@@ -32,7 +32,7 @@ const NavBar = () => {
               // }}
             ></div>
             <a
-              className={"block px-10 py-2"}
+              className={"block px-[8vw] py-[2vw] md:px-10 md:py-2"}
               onClick={() => {
                 router.push(nav.href);
               }}
