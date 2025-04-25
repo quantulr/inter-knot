@@ -7,6 +7,7 @@ import { MasonryProps } from "masonic";
 import useSWR from "swr";
 import request from "@/app/_lib/request";
 import { useRouter } from "next/navigation";
+import PostLoading from "./PostLoading";
 
 const Masonry: ComponentType<MasonryProps<Post>> = dynamic(
   () => import("masonic").then((mod) => mod.Masonry),
@@ -28,10 +29,10 @@ const PostsMasonryGrid = () => {
   });
   const isMd = useMediaQuery({ minWidth: 768 });
   if (isLoading) {
-    return <div>loading</div>;
+    return <PostLoading />;
   }
   return (
-    <div className={"w-full px-2 xl:px-20"}>
+    <div className={"w-full px-2 md:px-20"}>
       <Masonry
         items={data!.data}
         render={MasonryCard}

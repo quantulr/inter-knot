@@ -1,0 +1,30 @@
+@keyframes loading {
+  from {
+    background-position-y: 0px;
+  }
+
+  to {
+    background-position-y: 4440px;
+  }
+}
+
+.zzz-loading__anim[data-v-a9bf7fce] {
+  position: absolute;
+  right: 16.875px;
+  bottom: 28.125px;
+  width: 298.125px;
+  height: 84.375px;
+  background: url("https://fastcdn.mihoyo.com/static-resource-v2/2024/05/17/ce1888e31d79d6d4b2f4ad9b25fbbd68_115427045797695536.png");
+  background-size: 100% 3000%;
+  background-position: 0 0;
+  animation: loadingLoop-zzz-a9bf7fce 0.5s steps(30) infinite forwards;
+}
+
+@keyframes loadingLoop-zzz-a9bf7fce {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 -3000%;
+  }
+}
