@@ -9,7 +9,7 @@ const navs = [
   },
   {
     name: "历程",
-    href: "/history",
+    href: "/todo",
   },
   {
     name: "我的",

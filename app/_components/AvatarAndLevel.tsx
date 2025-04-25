@@ -13,7 +13,12 @@ const AvatarAndLevel = async () => {
         }
       >
         <Link href={"/signin"} className="btn btn-circle btn-primary">
-          login
+          <img
+            className="h-full w-full rounded-full"
+            src={
+              "https://0t76yt9xoib4rvp5.public.blob.vercel-storage.com/avatar/avatarDefaultPc-SQF1ZpK9n9hvVGWWjzKC3LvN3ToVym.png"
+            }
+          />
         </Link>
       </div>
     );

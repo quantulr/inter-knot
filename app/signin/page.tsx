@@ -1,6 +1,6 @@
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
-import bgimg from "@/app/_assets/signin_bg.png";
+import bgimg from "@/app/_assets/signin_bg.jpg";
 import Modal from "@/app/_components/Modal";
 
 const Page = () => {
@@ -13,7 +13,7 @@ const Page = () => {
     >
       <Modal
         prevPath={"/"}
-        showOverlay={false}
+        // showOverlay={false}
         title={<h3 className="text-2xl font-extrabold text-white">登录</h3>}
       >
         <div className="w-96 p-8">

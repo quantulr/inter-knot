@@ -4,7 +4,7 @@ import AvatarAndLevel from "@/app/_components/AvatarAndLevel";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
-    <div className={"relative min-h-screen bg-black"}>
+    <div className={"relative min-h-[100dvh] bg-[#2a2a2a] md:min-h-screen"}>
       <div
         className={
           "fixed top-0 left-0 z-20 flex h-18 w-full items-center justify-between bg-black px-2"

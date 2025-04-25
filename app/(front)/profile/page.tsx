@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
-const Page = async () => {
+export default async function Page() {
   const session = await auth();
   if (!session) {
     return redirect("/signin");
@@ -15,7 +15,5 @@ const Page = async () => {
     },
   });
   const { nickname }: ProfileResponse = await profileResponse.json();
-  return <div className={"text-white"}>{nickname}</div>;
-};
-
-export default Page;
+  return <div className={"min-h-[calc(100dvh_-_72px)]"}>{nickname}</div>;
+}
