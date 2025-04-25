@@ -1,0 +1,11 @@
+.uppy-FileInput-btn {
+  padding: 10px 20px;
+  background-color: #dafd30;
+  border-radius: 60px;
+}
+
+.uppy-FileInput-btn:active,
+.uppy-FileInput-btn:hover {
+  background-color: #a8e000;
+  color: #000000;
+}

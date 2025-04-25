@@ -13,7 +13,7 @@ const navs = [
   },
   {
     name: "我的",
-    href: "/profile",
+    href: "/mine",
   },
 ];
 const NavBar = () => {

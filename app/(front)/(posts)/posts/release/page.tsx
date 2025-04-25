@@ -1,3 +1,9 @@
+import PostReleaseForm from "@/app/_components/PostReleaseForm";
+
 export default function Page() {
-  return <div className="min-h-[calc(100dvh_-_72px)] bg-[#2a2a2a]"></div>;
+  return (
+    <div className="flex min-h-[calc(100dvh_-_72px)] px-12 py-12">
+      <PostReleaseForm />
+    </div>
+  );
 }
