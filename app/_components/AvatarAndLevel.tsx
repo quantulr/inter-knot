@@ -31,9 +31,9 @@ const AvatarAndLevel = async () => {
     <>
       {/* 手机端仅显示头像 */}
       <Link href={"/profile"} className="flex md:hidden">
-        <div className={"avatar h-[10vw] p-[1px]"}>
-          <div className={"aspect-square rounded-full"}>
-            <img src={avatar} className="h-[20px] w-[20px]" alt={""} />
+        <div className={"avatar p-[1px]"}>
+          <div className={"aspect-square h-[10vw] rounded-full"}>
+            <img src={avatar} alt={""} />
           </div>
         </div>
       </Link>
