@@ -4,7 +4,9 @@ import { getBaseUrlInRSC } from "@/app/_lib/utils";
 
 export default async function PostDetail({ id }: { id: string }) {
   const baseUrl = await getBaseUrlInRSC();
-  const post: Post = await (await fetch(`${baseUrl}/api/posts/${id}`)).json();
+  const postResp = await fetch(`${baseUrl}/api/posts/${id}`);
+  const post: Post = await postResp.json();
+
   return (
     <Modal
       title={

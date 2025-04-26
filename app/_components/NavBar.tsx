@@ -9,7 +9,7 @@ const navs = [
   },
   {
     name: "发布",
-    href: "/posts/release",
+    href: "/posts/release/new",
   },
   {
     name: "我的",
