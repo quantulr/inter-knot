@@ -8,8 +8,8 @@ const navs = [
     href: "/",
   },
   {
-    name: "历程",
-    href: "/todo",
+    name: "发布",
+    href: "/posts/release",
   },
   {
     name: "我的",

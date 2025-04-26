@@ -72,7 +72,7 @@ const ImageUpload = ({
             {file.uploadURL && (
               <div
                 className={
-                  "absolute top-0 right-0 z-50 h-2 w-2 animate-pulse rounded-full bg-green-300"
+                  "absolute top-0 right-0 z-50 h-3 w-3 animate-pulse rounded-full bg-green-300"
                 }
               ></div>
             )}
