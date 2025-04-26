@@ -1,3 +1,4 @@
+"use client";
 import loadingImg from "@/app/_assets/loading.png";
 import "./PostLoading.css";
 
