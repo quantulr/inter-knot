@@ -10,7 +10,6 @@ export default async function uploadByS3(file: Blob) {
 
   const client = new S3Client({
     endpoint: env.S3_ENDPOINT,
-    region: "usa-east-1",
     credentials: {
       accessKeyId: "sEAFRMgAj568LksFlv41",
       secretAccessKey: "IwBvCDgPWIaBgLUNnTOzLcIxGq80BFWDxsFi47oM",
@@ -25,7 +24,7 @@ export default async function uploadByS3(file: Blob) {
         // ACL: "public-read",
       }),
     );
-    return `${env.S3_ENDPOINT}/image/${filename}`;
+    return `${env.S3_ENDPOINT}/inter-knot/image/${filename}`;
   } catch {
     throw new Error("上传失败");
   }
