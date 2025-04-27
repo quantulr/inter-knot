@@ -32,11 +32,11 @@ const PostImagesSwiper = ({
     };
   }, [swiperRef]);
   return (
-    <div className="swiper" ref={swiperRef}>
+    <div className="swiper rounded-2xl md:h-full" ref={swiperRef}>
       <div className="swiper-wrapper items-center">
         {images.map((image) => (
           <div className={"swiper-slide"} key={image}>
-            <img className="w-full object-contain" src={image} />
+            <img className="h-full w-full object-contain" src={image} />
           </div>
         ))}
       </div>

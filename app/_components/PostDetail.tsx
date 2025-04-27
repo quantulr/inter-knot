@@ -17,11 +17,11 @@ export default async function PostDetail({ id }: { id: string }) {
       }
       prevPath={"/"}
     >
-      <div className="flex max-h-[80dvh] flex-col overflow-y-auto p-4 md:max-h-[500px] md:flex-row">
-        <div className="images flex w-full items-center rounded-2xl border-4 border-[#353535] md:w-72">
+      <div className="flex max-h-[80dvh] flex-col overflow-y-auto p-4 md:max-h-[500px] md:w-[80vw] md:flex-row">
+        <div className="images flex w-full items-center rounded-2xl border-4 border-[#353535] md:w-2/5">
           <PostImagesSwiper images={post.images} />
         </div>
-        <div className="post-content mt-4 w-96 rounded-2xl bg-black p-4 md:mt-0 md:ml-2">
+        <div className="post-content mt-4 rounded-2xl bg-black p-4 md:mt-0 md:ml-2 md:w-3/5">
           <div className="h-full overflow-y-scroll">
             <h3 className="text-lg font-bold text-white">{post.title}</h3>
             <p className="font-bold text-[#b2b2b2]">{post.content}</p>
