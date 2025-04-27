@@ -10,6 +10,7 @@ export default async function uploadByS3(file: Blob) {
 
   const client = new S3Client({
     endpoint: env.S3_ENDPOINT,
+    // region: "usa-east-1",
     credentials: {
       accessKeyId: "sEAFRMgAj568LksFlv41",
       secretAccessKey: "IwBvCDgPWIaBgLUNnTOzLcIxGq80BFWDxsFi47oM",
