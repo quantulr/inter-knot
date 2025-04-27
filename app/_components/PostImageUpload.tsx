@@ -1,6 +1,8 @@
 "use client";
 import Uppy, { Meta, UppyFile } from "@uppy/core";
 import FileInput from "@uppy/file-input";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { IoMdCheckmarkCircle } from "react-icons/io";
 
 import "@uppy/core/dist/style.min.css";
 import "@uppy/drag-drop/dist/style.min.css";
@@ -44,7 +46,7 @@ const ImageUpload = ({
           formData: false,
           endpoint: "/api/file/upload",
           onAfterResponse() {
-            setUpdateKey((prev) => prev + 1);
+            // setUpdateKey((prev) => prev + 1);
 
             setTimeout(() => {
               onUploadCompleted?.(uppy.current?.getFiles() ?? []);
@@ -66,16 +68,16 @@ const ImageUpload = ({
       >
         {uppy.current?.getFiles().map((file) => (
           <li
-            key={file.id}
+            key={`${file.id}-${file.uploadURL}`}
             className="image relative overflow-hidden rounded-md border-2 border-[#4c4c4c]"
           >
-            {file.uploadURL && (
-              <div
-                className={
-                  "absolute top-0 right-0 z-50 h-3 w-3 animate-pulse rounded-full bg-green-300"
-                }
-              ></div>
-            )}
+            <div className="overlay absolute top-0 left-0 z-50 flex h-full w-full items-center justify-center">
+              {file.uploadURL ? (
+                <IoMdCheckmarkCircle className="text-3xl text-[springgreen]" />
+              ) : (
+                <AiOutlineLoading3Quarters className="animate-spin text-3xl text-[#f43098]" />
+              )}
+            </div>
             <img
               className="aspect-square w-full rounded-md object-cover"
               src={URL.createObjectURL(file.data)}
