@@ -8,6 +8,7 @@ declare interface Post {
     avatar: string;
     nickname: string;
   };
+  views: number;
 }
 
 declare interface PostForm {

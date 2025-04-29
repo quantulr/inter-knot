@@ -29,5 +29,15 @@ export async function GET(
       },
     );
   }
+
+  await prisma.post.update({
+    where: {
+      id: post.id,
+    },
+    data: {
+      views: post.views + 1,
+    },
+  });
+
   return NextResponse.json(post);
 }

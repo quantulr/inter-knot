@@ -4,18 +4,19 @@ import prisma from "@/app/_lib/prisma";
 import { auth } from "@/auth";
 
 const postListParamsSchema = z.object({
-  page: z.string(),
-  limit: z.string(),
+  page: z.number(),
+  limit: z.number(),
 });
 
 export async function GET(req: NextRequest) {
   const queryObj: {
-    page?: string;
-    limit?: string;
+    page?: number;
+    limit?: number;
   } = {};
-  queryObj.page = req.nextUrl.searchParams.get("page") ?? "1";
-  queryObj.limit = req.nextUrl.searchParams.get("limit") ?? "10";
+  queryObj.page = Number(req.nextUrl.searchParams.get("page")) ?? 1;
+  queryObj.limit = Number(req.nextUrl.searchParams.get("limit")) ?? 10;
   const query = postListParamsSchema.safeParse(queryObj);
+
   if (!query.success) {
     return Response.json(
       {
@@ -26,6 +27,7 @@ export async function GET(req: NextRequest) {
       },
     );
   }
+  const total = await prisma.post.count();
   const posts = await prisma.post.findMany({
     include: {
       author: {
@@ -37,13 +39,16 @@ export async function GET(req: NextRequest) {
         },
       },
     },
-
-    skip: (Number(query.data.page) - 1) * Number(query.data.limit),
-    take: Number(query.data.limit),
+    skip: (query.data.page - 1) * query.data.limit,
+    // skip:(1-1) * 2,
+    take: query.data.limit,
+    // take: 2,
   });
+  // return NextResponse.json(query);
 
   return Response.json({
-    hasNext: true,
+    hasNext: total > query.data.page * query.data.limit,
+    // hasNext: false,
     data: posts,
   });
 }

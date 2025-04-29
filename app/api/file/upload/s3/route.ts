@@ -18,9 +18,7 @@ export async function POST(req: NextRequest) {
   const ext = mime.extension(file.type);
   const xid = new Xid();
   const filename = `${xid}.${ext}`;
-  //   console.log(filename);
 
-  //   return new NextResponse("hello");
   try {
     const resp = await client.send(
       new PutObjectCommand({
