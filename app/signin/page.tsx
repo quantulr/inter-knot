@@ -15,7 +15,7 @@ const Page = () => {
     >
       <Modal
         prevPath={"/"}
-        // showOverlay={false}
+        showOverlay={false}
         title={<h3 className="text-2xl font-extrabold text-white">登录</h3>}
       >
         <div className="w-96 p-8">

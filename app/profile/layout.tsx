@@ -9,8 +9,8 @@ export default function Layout({
 }) {
   return (
     <>
-      {modal}
       {children}
+      {modal}
     </>
   );
 }

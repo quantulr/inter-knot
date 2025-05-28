@@ -21,16 +21,26 @@ export default async function Page() {
 
   return (
     <div
-      className="min-h-[100dvh] bg-cover bg-top md:min-h-[100vh]"
+      className="min-h-[100dvh] bg-cover bg-top p-8 md:min-h-[100vh]"
       style={{
         backgroundImage: `url(${pcPageBg.src})`,
       }}
     >
-      <Link href={"/profile/avatar/update"} className="avatar">
-        <div className="w-16 rounded-full">
-          <img src={profile.avatar} />
-        </div>
-      </Link>
+      <div className={"flex"}>
+        <Link href={"/profile/avatar/update"}>
+          <div
+            className={
+              "rounded-full border-3 border-gray-300 hover:border-amber-200"
+            }
+          >
+            <div className="avatar">
+              <div className="w-16 rounded-full">
+                <img src={profile.avatar} />
+              </div>
+            </div>
+          </div>
+        </Link>
+      </div>
     </div>
   );
 }
