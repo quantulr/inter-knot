@@ -1,6 +1,7 @@
 import { PrismaClient } from "@/prisma/prismaClient";
 import NextAuth, { AuthError } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import argon2 from '@node-rs/argon2'
 
 const prisma = new PrismaClient();
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -28,6 +29,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!user) {
           throw new AuthError("用户名或密码错误");
         }
+
+        //TODO: hashedPassword
+        const isPasswordValid = await argon2.verify(
+          user.password,
+          password as string,
+        );
+        if (!isPasswordValid) {
+          throw new AuthError("用户名或密码错误");
+        }
         return user;
       },
     }),
@@ -37,7 +47,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     redirect() {
-
       return "/";
     },
     jwt({ token, user }) {

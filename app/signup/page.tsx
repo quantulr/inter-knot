@@ -1,9 +1,19 @@
-import { signIn } from "@/auth";
-import { AuthError } from "next-auth";
+"use client";
 import bgimg from "@/app/_assets/signin_bg.jpg";
 import Modal from "@/app/_components/Modal";
+import { useFormik } from "formik";
 
-const Page = () => {
+export default function Page() {
+  const formik = useFormik({
+    initialValues: {
+      password: "",
+      username: "",
+      retypePassword: "",
+    },
+    onSubmit(values) {
+      console.log(values);
+    },
+  });
   return (
     <div
       className={
@@ -14,26 +24,10 @@ const Page = () => {
       }}
     >
       <Modal
-        prevPath={"/"}
-        // showOverlay={false}
-        title={<h3 className="text-2xl font-extrabold text-white">登录</h3>}
+        title={<h3 className="text-3xl font-extrabold text-white">注册</h3>}
       >
-        <div className="w-96 p-8">
-          <form
-            className={""}
-            action={async (formData) => {
-              "use server";
-              try {
-                await signIn("credentials", formData);
-              } catch (error) {
-                if (error instanceof AuthError) {
-                  // TODO: handle error
-                  // return redirect(`${SIGNIN_ERROR_URL}?error=${error.type}`)
-                }
-                throw error;
-              }
-            }}
-          >
+        <div className={"w-[90dvw] p-8 md:w-96"}>
+          <form onSubmit={formik.handleSubmit}>
             <label className="floating-label">
               <span className="label">用户名</span>
               <input
@@ -52,6 +46,18 @@ const Page = () => {
                 type="password"
                 className={"input input-md w-full"}
                 placeholder="密码"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+              />
+            </label>
+            <label className="floating-label mt-6">
+              <span className="label">确认密码</span>
+              <input
+                name={"password"}
+                id={"password"}
+                type="password"
+                className={"input input-md w-full"}
+                placeholder="确认密码"
               />
             </label>
             <button
@@ -60,13 +66,11 @@ const Page = () => {
               }
               type={"submit"}
             >
-              登录
+              注册
             </button>
           </form>
         </div>
       </Modal>
     </div>
   );
-};
-
-export default Page;
+}

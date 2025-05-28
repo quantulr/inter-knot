@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { z } from "zod";
 import prisma from "@/app/_lib/prisma";
+import argon2 from "@node-rs/argon2";
 
 const signupSchema = z.object({
   username: z.string().min(4),
@@ -22,8 +23,15 @@ export async function POST(req: NextRequest) {
       },
     );
   }
+
+  // TODO: hashedPassword
+  const hashedPassword = await argon2.hash(signupForm.data.password);
+
   const res = await prisma.user.create({
-    data: signupForm.data,
+    data: {
+      ...signupForm.data,
+      password: hashedPassword,
+    },
   });
 
   if (res) {
