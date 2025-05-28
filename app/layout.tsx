@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import favicon from "@/app/_assets/favicon.png";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,6 +16,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "绳网",
   description: "inter knot",
+  icons: {
+    icon: favicon.src,
+    apple: favicon.src,
+  },
 };
 
 export default function RootLayout({
