@@ -4,6 +4,7 @@ import { put } from "@vercel/blob";
 import mime from "mime-types";
 import { auth } from "@/auth";
 import prisma from "@/app/_lib/prisma";
+import { uploadByAliyunOSS } from "@/app/_lib/storage/aliyun-oss";
 
 export async function POST(req: NextRequest) {
   const session = await auth();
@@ -32,13 +33,23 @@ export async function POST(req: NextRequest) {
   }
 
   const xid = new Xid();
-  const { url } = await put(`avatar/${xid}.${ext}`, file, { access: "public" });
+  let avatarUrl: string;
+  if (process.env.STORAGE_TYPE === "oss") {
+    const { url } = await uploadByAliyunOSS(file);
+    avatarUrl = url;
+  } else {
+    const { url } = await put(`avatar/${xid}.${ext}`, file, {
+      access: "public",
+    });
+    avatarUrl = url;
+  }
+
   await prisma.user.update({
     where: {
       id: curUser.id,
     },
     data: {
-      avatar: url,
+      avatar: avatarUrl,
     },
   });
   return NextResponse.json({

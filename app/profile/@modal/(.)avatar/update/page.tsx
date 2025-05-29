@@ -22,7 +22,7 @@ export default async function Page() {
       >
         <div className={"avatar"}>
           <div className={"w-24 rounded-full"}>
-            <img src={profile.avatar}  alt={""}/>
+            <img src={profile.avatar} alt={""} />
           </div>
         </div>
       </div>

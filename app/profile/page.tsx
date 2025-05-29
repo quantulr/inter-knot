@@ -4,6 +4,8 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import Link from "next/link";
+// import backPng from "@/app/_assets/back.png";
+// import backActivePng from "@/app/_assets/back_active.png";
 
 export default async function Page() {
   const session = await auth();
@@ -21,11 +23,16 @@ export default async function Page() {
 
   return (
     <div
-      className="min-h-[100dvh] bg-cover bg-top p-8 md:min-h-[100vh]"
+      className={`min-h-[100dvh] bg-cover bg-top p-8 md:min-h-[100vh]`}
       style={{
         backgroundImage: `url(${pcPageBg.src})`,
       }}
     >
+      <div className={"flex"}>
+        <Link href={""} className={`aspect-[136/94] w-16`} style={{}}>
+          {/*<img className={"w-16 bg-white"} src={backPng.src} alt={""} />*/}
+        </Link>
+      </div>
       <div className={"flex"}>
         <Link href={"/profile/avatar/update"}>
           <div
