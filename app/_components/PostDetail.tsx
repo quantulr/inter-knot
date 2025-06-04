@@ -17,7 +17,7 @@ export default async function PostDetail({ id }: { id: string }) {
       }
       prevPath={"/"}
     >
-      <div className="flex max-h-[80dvh] flex-col overflow-y-auto p-4 md:max-h-[64vh] md:w-[80vw] md:flex-row">
+      <div className="flex max-h-[80dvh] flex-col overflow-y-auto p-4 md:h-[64vh] md:w-[80vw] md:flex-row">
         <div className="images flex w-full items-center rounded-2xl border-4 border-[#353535] md:w-2/5">
           <PostImagesSwiper images={post.images} />
         </div>
