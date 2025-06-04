@@ -2,6 +2,7 @@ import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
 import bgimg from "@/app/_assets/signin_bg.jpg";
 import Modal from "@/app/_components/Modal";
+import Link from "next/link";
 
 const Page = () => {
   return (
@@ -63,6 +64,11 @@ const Page = () => {
               登录
             </button>
           </form>
+          <div className={"mt-3 flex justify-end px-1"}>
+            <Link href={"/signup"} className={"text-sm text-[#00c3ff]"}>
+              注册账号
+            </Link>
+          </div>
         </div>
       </Modal>
     </div>

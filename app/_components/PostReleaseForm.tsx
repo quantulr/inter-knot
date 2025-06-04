@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+
 const postFormSchema = Yup.object().shape({
   title: Yup.string()
     .min(1, "标题过短")
