@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
+import { CiLogout } from "react-icons/ci";
+import defaultAvatar from "@/app/_assets/default-avatar.png";
 
 const AvatarLinkPc = ({
   avatar,
@@ -23,7 +25,7 @@ const AvatarLinkPc = ({
       >
         <div className={"avatar h-full p-[1px]"}>
           <div className={"aspect-square h-full rounded-full"}>
-            <img src={avatar} alt={""} />
+            <img src={avatar ?? defaultAvatar.src} alt={""} />
           </div>
         </div>
         <div className={"ml-2 flex flex-col justify-center"}>
@@ -48,14 +50,14 @@ const AvatarLinkPc = ({
       >
         <div className={"flex flex-col items-end"}>
           <div
-            className={"h-2 w-56"}
+            className={"h-2 w-48"}
             onMouseOver={() => setShowPopover(true)}
             onMouseLeave={() => setShowPopover(false)}
           ></div>
           <ul
             onMouseOver={() => setShowPopover(true)}
             onMouseLeave={() => setShowPopover(false)}
-            className="menu bg-base-200 rounded-box w-56"
+            className={"menu bg-base-200 rounded-box w-48"}
           >
             <li>
               <button
@@ -65,6 +67,7 @@ const AvatarLinkPc = ({
                   await signOut();
                 }}
               >
+                <CiLogout />
                 退出登录
               </button>
             </li>

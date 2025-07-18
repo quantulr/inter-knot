@@ -3,6 +3,7 @@ import { getBaseUrlInRSC } from "../_lib/utils";
 import { auth } from "@/auth";
 import Link from "next/link";
 import AvatarLinkPc from "@/app/_components/AvatarLinkPc";
+import defaultAvatar from "@/app/_assets/default-avatar.png";
 
 const AvatarAndLevel = async () => {
   const session = await auth();
@@ -39,7 +40,7 @@ const AvatarAndLevel = async () => {
       <Link href={"/profile"} className="flex md:hidden">
         <div className={"avatar p-[1px]"}>
           <div className={"aspect-square h-[10vw] rounded-full"}>
-            <img src={avatar} alt={""} />
+            <img src={avatar ?? defaultAvatar.src} alt={""} />
           </div>
         </div>
       </Link>
