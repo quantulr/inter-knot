@@ -27,14 +27,14 @@ export async function POST(req: NextRequest) {
   const hashedPassword = await argon2.hash(signupForm.data.password);
   let res;
   try {
-    res = await prisma.user.create({
+    res = await prisma.users.create({
       data: {
         ...signupForm.data,
         password: hashedPassword,
       },
     });
   } catch {
-    const userSearchByUsername = await prisma.user.findUnique({
+    const userSearchByUsername = await prisma.users.findUnique({
       where: {
         username: signupForm.data.username,
       },
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
         },
       );
     }
-    const userSearchByEmail = await prisma.user.findUnique({
+    const userSearchByEmail = await prisma.users.findUnique({
       where: {
         email: signupForm.data.email,
       },

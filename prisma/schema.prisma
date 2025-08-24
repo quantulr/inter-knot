@@ -16,7 +16,7 @@ model Post {
   published Boolean   @default(true)
   createAt  DateTime  @default(now()) @map("create_at")
   authorId  String    @map("author_id")
-  author    User      @relation(fields: [authorId], references: [id])
+  author    Users      @relation(fields: [authorId], references: [id])
   images    String[]
   views     Int       @default(0)
   likes     Int       @default(0)
@@ -25,7 +25,7 @@ model Post {
   @@map("post")
 }
 
-model User {
+model Users {
   id       String   @id @default(cuid())
   username String   @unique
   password String
@@ -36,7 +36,7 @@ model User {
   createAt DateTime @default(now()) @map("create_at")
   post     Post[]
 
-  @@map("user")
+  @@map("users")
 }
 
 model Comment {
