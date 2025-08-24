@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     avatarUrl = url;
   }
 
-  await prisma.user.update({
+  await prisma.users.update({
     where: {
       id: curUser.id,
     },
