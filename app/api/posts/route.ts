@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import prisma from "@/app/_lib/prisma";
 import { auth } from "@/auth";
+import { headers } from "next/headers";
 
 const postListParamsSchema = z.object({
   page: z.number(),
@@ -32,10 +33,8 @@ export async function GET(req: NextRequest) {
     include: {
       author: {
         omit: {
+          emailVerified: true,
           id: true,
-          password: true,
-          email: true,
-          createAt: true,
         },
       },
     },
@@ -60,8 +59,11 @@ const postSchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
-  const session = await auth();
-  if (!session || !session.user?.id) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
     return NextResponse.json(
       { error: "Not authorized" },
       {

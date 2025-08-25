@@ -2,9 +2,12 @@ import PostReleaseForm from "@/app/_components/PostReleaseForm";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import pcPageBg from "@/app/_assets/pc-page-bg.png";
+import { headers } from "next/headers";
 
 export default async function Page() {
-  const session = await auth();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
   if (!session) {
     return redirect("/signin");
   }

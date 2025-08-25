@@ -1,13 +1,16 @@
 import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 import prisma from "@/app/_lib/prisma";
+import { headers } from "next/headers";
 
 export async function GET() {
-  const session = await auth();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
   if (!session || !session.user) {
     return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
   }
-  const user = await prisma.users.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
       id: session.user.id,
     },
@@ -22,7 +25,7 @@ export async function GET() {
       },
     );
   }
-  const { username, avatar, email, nickname } = user;
+  const { username, image: avatar, email, displayUsername: nickname } = user;
   return NextResponse.json({
     username,
     nickname,

@@ -1,15 +1,16 @@
 import { z } from "zod";
-import { signIn } from "@/auth";
+import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/auth";
 
 const formSchema = z.object({
   username: z.string(),
   password: z.string(),
 });
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const form = formSchema.safeParse(await req.json());
   if (!form.success) {
-    return Response.json(
+    return NextResponse.json(
       {
         error: form.error,
       },
@@ -18,16 +19,14 @@ export async function POST(req: Request) {
       },
     );
   }
-  const { username, password } = form.data;
-  try {
-    await signIn("credentials", {
-      redirect: false,
-      username,
-      password,
-    });
-    return Response.json({ success: true }, {});
-  } catch (error) {
-    // @ts-expect-error wcnm
-    return Response.json({ error: error.message }, { status: 401 });
-  }
+  const formObj = form.data;
+
+  const response = await auth.api.signInUsername({
+    body: {
+      username: formObj.username,
+      password: formObj.password,
+    },
+    asResponse: true,
+  });
+  return response;
 }

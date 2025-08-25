@@ -11,8 +11,8 @@ export default async function PostDetail({ id }: { id: string }) {
     <Modal
       title={
         <PostAuthor
-          avatar={post.author.avatar}
-          nickname={post.author.nickname}
+          avatar={post.author.image}
+          nickname={post.author.displayUsername}
         />
       }
       prevPath={"/"}

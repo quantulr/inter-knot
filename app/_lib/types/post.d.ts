@@ -5,8 +5,8 @@ declare interface Post {
   images: string[];
   authorId: string;
   author: {
-    avatar: string;
-    nickname: string;
+    image: string;
+    displayUsername: string;
   };
   views: number;
 }

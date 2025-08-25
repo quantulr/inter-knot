@@ -1,7 +1,6 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import prisma from "@/app/_lib/prisma";
-import argon2 from "@node-rs/argon2";
+import { auth } from "@/auth";
 
 const signupSchema = z.object({
   username: z.string().min(4),
@@ -14,7 +13,7 @@ export async function POST(req: NextRequest) {
   const signupJson = await req.json();
   const signupForm = signupSchema.safeParse(signupJson);
   if (!signupForm.success) {
-    return Response.json(
+    return NextResponse.json(
       {
         error: signupForm.error,
       },
@@ -23,54 +22,29 @@ export async function POST(req: NextRequest) {
       },
     );
   }
-
-  const hashedPassword = await argon2.hash(signupForm.data.password);
-  let res;
+  let response: Response;
   try {
-    res = await prisma.users.create({
-      data: {
-        ...signupForm.data,
-        password: hashedPassword,
-      },
-    });
-  } catch {
-    const userSearchByUsername = await prisma.users.findUnique({
-      where: {
-        username: signupForm.data.username,
-      },
-    });
-    if (userSearchByUsername) {
-      return Response.json(
-        {
-          error: "用户名已存在",
-        },
-        {
-          status: 400,
-        },
-      );
-    }
-    const userSearchByEmail = await prisma.users.findUnique({
-      where: {
+    response = await auth.api.signUpEmail({
+      body: {
+        name: signupForm.data.username,
         email: signupForm.data.email,
+        username: signupForm.data.username,
+        password: signupForm.data.password,
+        displayUsername: signupForm.data.nickname,
       },
+      asResponse: true,
     });
-    if (userSearchByEmail) {
-      return Response.json(
-        {
-          error: "邮箱已经被使用",
-        },
-        {
-          status: 400,
-        },
-      );
-    }
+  } catch (err) {
+    const error = err as {
+      body: object;
+      statusCode: number;
+      status: string;
+    };
+    response = NextResponse.json(error.body, {
+      status: error.statusCode,
+      statusText: error.status,
+    });
   }
 
-  if (res) {
-    return Response.json({
-      statusCode: 200,
-    });
-  } else {
-    return Response.json({ error: "未知错误" }, { status: 400 });
-  }
+  return response;
 }

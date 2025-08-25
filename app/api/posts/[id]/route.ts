@@ -11,9 +11,10 @@ export async function GET(
       author: {
         omit: {
           id: true,
-          password: true,
+          // password: true,
+          emailVerified: true,
           email: true,
-          createAt: true,
+          // createAt: true,
         },
       },
     },

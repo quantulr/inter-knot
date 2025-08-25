@@ -3,22 +3,24 @@ import { Xid } from "xid-ts";
 import { put } from "@vercel/blob";
 import mime from "mime-types";
 import { auth } from "@/auth";
-import prisma from "@/app/_lib/prisma";
-import { uploadByAliyunOSS } from "@/app/_lib/storage/aliyun-oss";
+import { headers } from "next/headers";
 
 export async function POST(req: NextRequest) {
-  const session = await auth();
-  if (!session || !session.user) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
     return NextResponse.json(
       {
-        message: "Not logged in",
+        code: "UNAUTHORIZED",
       },
       {
         status: 401,
+        statusText: "UNAUTHORIZED",
       },
     );
   }
-  const curUser = session.user;
 
   const file = await req.blob();
   const mimetype = file.type;
@@ -33,26 +35,19 @@ export async function POST(req: NextRequest) {
   }
 
   const xid = new Xid();
-  let avatarUrl: string;
-  if (process.env.STORAGE_TYPE === "oss") {
-    const { url } = await uploadByAliyunOSS(file);
-    avatarUrl = url;
-  } else {
-    const { url } = await put(`avatar/${xid}.${ext}`, file, {
-      access: "public",
-    });
-    avatarUrl = url;
-  }
+  // let avatarUrl: string;
 
-  await prisma.users.update({
-    where: {
-      id: curUser.id,
-    },
-    data: {
-      avatar: avatarUrl,
-    },
+  const { url } = await put(`avatar/${xid}.${ext}`, file, {
+    access: "public",
   });
-  return NextResponse.json({
-    message: "成功修改头像",
+  const avatarUrl = url;
+
+  const response = await auth.api.updateUser({
+    headers: await headers(),
+    body: {
+      image: avatarUrl,
+    },
+    asResponse: true,
   });
+  return response;
 }

@@ -1,10 +1,17 @@
-import { signIn } from "@/auth";
-import { AuthError } from "next-auth";
+import { auth } from "@/auth";
 import bgimg from "@/app/_assets/signin_bg.jpg";
 import Modal from "@/app/_components/Modal";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 
-const Page = () => {
+const Page = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (session) {
+    redirect("/");
+  }
   return (
     <div
       className={
@@ -24,10 +31,25 @@ const Page = () => {
             className={""}
             action={async (formData) => {
               "use server";
+
+              const formJson: {
+                username: string;
+                password: string;
+              } = { username: "", password: "" };
+
+              /*     formData.forEach(
+                (value, key) => (formJson[key] = value),
+              );
+ */
+              formJson.username = formData.get("username")?.toString() ?? "";
+              formJson.password = formData.get("password")?.toString() ?? "";
               try {
-                await signIn("credentials", formData);
+                await auth.api.signInUsername({
+                  body: { ...formJson },
+                });
+                redirect("/");
               } catch (error) {
-                if (error instanceof AuthError) {
+                if (error) {
                   // TODO: handle error
                   // return redirect(`${SIGNIN_ERROR_URL}?error=${error.type}`)
                 }

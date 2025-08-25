@@ -1,9 +1,10 @@
 "use client";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
 import { useState } from "react";
 import { CiLogout } from "react-icons/ci";
 import defaultAvatar from "@/app/_assets/default-avatar.png";
+import { signOut } from "@/app/_lib/auth-client";
+import { useRouter } from "next/navigation";
 
 const AvatarLinkPc = ({
   avatar,
@@ -13,6 +14,7 @@ const AvatarLinkPc = ({
   nickname: string;
 }) => {
   const [showPopover, setShowPopover] = useState(false);
+  const router = useRouter();
   return (
     <div className={"relative"}>
       <Link
@@ -65,6 +67,7 @@ const AvatarLinkPc = ({
                 type={"submit"}
                 onClick={async () => {
                   await signOut();
+                  router.refresh();
                 }}
               >
                 <CiLogout />

@@ -91,7 +91,6 @@ const MasonryCard = ({
         "relative m-2 flex min-h-[100px] cursor-pointer flex-col overflow-hidden rounded-t-3xl rounded-bl-3xl border-4 border-black bg-white"
       }
     >
-      {/*<div>Index: {index}</div>*/}
       <div
         className={
           "absolute top-0 left-0 flex items-center rounded-2xl p-2 text-white hover:backdrop-blur-2xl"
@@ -105,12 +104,12 @@ const MasonryCard = ({
         <div className={"nickname-and-avatar relative flex items-center"}>
           <div className={"avatar absolute -top-7 left-0"}>
             <div className={"w-14 rounded-full border-2 border-[#272727]"}>
-              <img src={data.author.avatar} />
+              <img src={data.author.image} />
             </div>
           </div>
           <div className={"ml-16 flex w-full flex-col"}>
             <span className={"leading-none font-bold text-[#636363]"}>
-              {data.author.nickname}
+              {data.author.displayUsername}
             </span>
             <div
               className={"seg mt-[7] h-[3px] rounded-full bg-[#383838]"}

@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { getBaseUrlInRSC } from "../_lib/utils";
 import { auth } from "@/auth";
 import Link from "next/link";
@@ -6,7 +6,9 @@ import AvatarLinkPc from "@/app/_components/AvatarLinkPc";
 import defaultAvatar from "@/app/_assets/default-avatar.png";
 
 const AvatarAndLevel = async () => {
-  const session = await auth();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
   if (!session) {
     return (
       <div

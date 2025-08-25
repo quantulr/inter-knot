@@ -1,11 +1,14 @@
 import { getBaseUrlInRSC } from "@/app/_lib/utils";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import pcPageBg from "@/app/_assets/pc-page-bg.png";
 
 export default async function Page() {
-  const session = await auth();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
   if (!session) {
     return redirect("/signin");
   }

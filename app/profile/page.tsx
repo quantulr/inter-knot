@@ -2,13 +2,13 @@ import pcPageBg from "@/app/_assets/pc-page-bg.png";
 import { getBaseUrlInRSC } from "../_lib/utils";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import Link from "next/link";
-// import backPng from "@/app/_assets/back.png";
-// import backActivePng from "@/app/_assets/back_active.png";
 
 export default async function Page() {
-  const session = await auth();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
   if (!session) {
     return redirect("/signin");
   }
