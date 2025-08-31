@@ -1,9 +1,10 @@
 import Modal from "@/app/_components/Modal";
-import { cookies } from "next/headers";
-import { getBaseUrlInRSC } from "@/app/_lib/utils";
+import AvatarCropper from "@/app/_components/AvatarCropper";
+/*import { cookies } from "next/headers";
+import { getBaseUrlInRSC } from "@/app/_lib/utils";*/
 
 export default async function Page() {
-  const cookie = await cookies();
+  /*  const cookie = await cookies();
   const baseUrl = await getBaseUrlInRSC();
   const profile: ProfileResponse = await (
     await fetch(`${baseUrl}/api/profile`, {
@@ -11,7 +12,7 @@ export default async function Page() {
         cookie: cookie.toString(),
       },
     })
-  ).json();
+  ).json();*/
   return (
     <Modal
       prevPath={"/profile"}
@@ -20,11 +21,12 @@ export default async function Page() {
       <div
         className={"h-[60dvh] w-[95dvw] text-white md:h-[500px] md:w-[600px]"}
       >
-        <div className={"avatar"}>
+        <AvatarCropper />
+        {/*<div className={"avatar"}>
           <div className={"w-24 rounded-full"}>
             <img src={profile.avatar} alt={""} />
           </div>
-        </div>
+        </div>*/}
       </div>
     </Modal>
   );
