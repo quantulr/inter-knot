@@ -21,12 +21,11 @@ export async function POST(req: NextRequest) {
   }
   const formObj = form.data;
 
-  const response = await auth.api.signInUsername({
+  return await auth.api.signInUsername({
     body: {
       username: formObj.username,
       password: formObj.password,
     },
     asResponse: true,
   });
-  return response;
 }

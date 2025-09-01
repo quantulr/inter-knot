@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import request from "@/app/_lib/request";
+import { useRouter } from "next/navigation";
 
 const signupFormSchema = z
   .object({
@@ -48,6 +49,7 @@ export default function Page() {
       nickname: "",
     },
   });
+  const router = useRouter();
   return (
     <>
       <Toaster />
@@ -76,6 +78,10 @@ export default function Page() {
                   .then(() => {
                     reset();
                     toast.success("账号注册成功");
+                    setTimeout(() => {
+                      router.push("/");
+                      router.refresh();
+                    }, 500);
                   })
                   .catch((e) => {
                     toast.error(e?.response?.data?.error ?? "注册失败");

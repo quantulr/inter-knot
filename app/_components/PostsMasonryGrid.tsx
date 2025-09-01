@@ -2,13 +2,14 @@
 
 import { useMediaQuery } from "react-responsive";
 import dynamic from "next/dynamic";
-import { ComponentType } from "react";
+import { ComponentType, useMemo } from "react";
 import { MasonryProps } from "masonic";
 import useSWRInfinite from "swr/infinite";
 import request from "@/app/_lib/request";
 import { useRouter } from "next/navigation";
 import PostLoading from "./PostLoading";
 import { IoEye } from "react-icons/io5";
+import HaImage from "@/app/_components/HaImage";
 
 const Masonry: ComponentType<MasonryProps<Post>> = dynamic(
   () => import("masonic").then((mod) => mod.Masonry),
@@ -37,6 +38,12 @@ const PostsMasonryGrid = () => {
   } = useSWRInfinite(getKey, (key: string) =>
     request.get<never, BasePageResponse<Post[]>>(key),
   );
+
+  const items = useMemo(
+    () => pages?.map((page) => page.data).flat() ?? [],
+    [pages],
+  );
+
   const isXl = useMediaQuery({
     minWidth: 1280,
   });
@@ -52,7 +59,7 @@ const PostsMasonryGrid = () => {
   return (
     <div className={"w-full px-2 md:px-20"}>
       <Masonry
-        items={pages?.map((page) => page.data).flat() ?? []}
+        items={items}
         render={MasonryCard}
         columnCount={isXl ? 5 : isMd ? 3 : 2}
       />
@@ -66,7 +73,7 @@ const PostsMasonryGrid = () => {
           }
           const lastPage = pages ? pages[size - 1] : undefined;
           if (lastPage?.hasNext) {
-            setSize(size + 1);
+            void setSize(size + 1);
           }
         }}
       />
@@ -99,12 +106,24 @@ const MasonryCard = ({
         <IoEye className="text-2xl" />
         <span className={"ml-1"}>{data.views}</span>
       </div>
-      <img className={"block"} src={data.images[0]} alt={""} />
+      {/*<img className={"block"} src={data.images[0]} alt={""} />*/}
+      <HaImage
+        className={"block"}
+        src={data.images[0]}
+        loadingIndicator={
+          <div className={"skeleton aspect-[3/4] w-full"}></div>
+        }
+      />
       <div className={"bg-[#272727] px-5 pb-4"}>
         <div className={"nickname-and-avatar relative flex items-center"}>
           <div className={"avatar absolute -top-7 left-0"}>
             <div className={"w-14 rounded-full border-2 border-[#272727]"}>
-              <img src={data.author.image} />
+              <HaImage
+                src={data.author.image}
+                loadingIndicator={
+                  <div className={"skeleton z-50 aspect-square w-full"}></div>
+                }
+              />
             </div>
           </div>
           <div className={"ml-16 flex w-full flex-col"}>

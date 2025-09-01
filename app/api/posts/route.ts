@@ -93,3 +93,63 @@ export async function POST(req: NextRequest) {
   });
   return Response.json(result);
 }
+
+/* 删除帖子 */
+const deleteSchema = z.object({
+  posts: z.array(z.string()),
+});
+
+export async function DELETE(req: NextRequest) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "Not authorized" },
+      {
+        status: 401,
+      },
+    );
+  }
+  const body = await req.json();
+  const postsResp = deleteSchema.safeParse(body);
+  if (!postsResp.success) {
+    return Response.json(
+      {
+        error: postsResp.error,
+      },
+      {
+        status: 400,
+      },
+    );
+  }
+  const posts = postsResp.data.posts;
+  const willDeletePosts = await prisma.post.findMany({
+    where: {
+      id: {
+        in: posts,
+      },
+    },
+  });
+  for (const post of willDeletePosts) {
+    if (post.authorId !== session.user.id) {
+      return Response.json(
+        { error: "没有删除权限" },
+        {
+          status: 400,
+        },
+      );
+    }
+  }
+  const { count } = await prisma.post.deleteMany({
+    where: {
+      id: {
+        in: posts,
+      },
+    },
+  });
+  return NextResponse.json({
+    message: `成功删除了 ${count} 个帖子`,
+  });
+}
