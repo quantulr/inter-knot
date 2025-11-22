@@ -5,7 +5,7 @@ import { auth } from "@/auth";
 const signupSchema = z.object({
   username: z.string().min(4),
   password: z.string().min(12),
-  email: z.string().email(),
+  email: z.email(),
   nickname: z.string().min(1),
 });
 

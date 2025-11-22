@@ -17,7 +17,7 @@ const signupFormSchema = z
       .min(3, "不能少于3个字符")
       .max(20, "不能多于20个字符"),
     password: z.string().min(1, "密码不能为空").min(12, "不能少于12个字符"),
-    email: z.string().email(),
+    email: z.email(),
     nickname: z.string(),
     retypePassword: z.string(),
   })

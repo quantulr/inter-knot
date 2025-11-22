@@ -20,7 +20,7 @@
     "@uppy/drag-drop": "^4.2.2",
     "@uppy/file-input": "^4.2.2",
     "@uppy/xhr-upload": "^4.4.2",
-    "@vercel/blob": "^1.1.1",
+    "@vercel/blob": "^2.0.0",
     "@vercel/speed-insights": "^1.2.0",
     "axios": "^1.13.2",
     "better-auth": "^1.4.0",
@@ -38,11 +38,11 @@
     "react-hot-toast": "^2.6.0",
     "react-icons": "^5.5.0",
     "react-responsive": "^10.0.1",
-    "swiper": "^11.2.10",
+    "swiper": "^12.0.3",
     "swr": "^2.3.6",
     "xid-ts": "^1.2.1",
     "yup": "^1.7.1",
-    "zod": "^3.25.76"
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
@@ -62,7 +62,7 @@
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   },
-  "packageManager": "pnpm@10.22.0+sha512.bf049efe995b28f527fd2b41ae0474ce29186f7edcb3bf545087bd61fbbebb2bf75362d1307fda09c2d288e1e499787ac12d4fcb617a974718a6051f2eee741c",
+  "packageManager": "pnpm@10.23.0+sha512.21c4e5698002ade97e4efe8b8b4a89a8de3c85a37919f957e7a0f30f38fbc5bbdd05980ffe29179b2fb6e6e691242e098d945d1601772cad0fef5fb6411e2a4b",
   "pnpm": {
     "overrides": {
       "@types/react": "19.2.6",
