@@ -3,8 +3,7 @@ import { PrismaClient } from "@/prisma/prismaClient";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { username } from "better-auth/plugins";
 import { nextCookies } from "better-auth/next-js";
-
-const prisma = new PrismaClient();
+import prisma from "@/app/_lib/prisma";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
